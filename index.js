@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const userRoute = require("./routes/user");
+const authRoute = require("./routes/auth");
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ mongoose
   .catch((error) => console.log(error.message));
 
 app.use(express.json()); // so we can pass any json file
+app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 
 app.listen(process.env.PORT || 5000, () => {
