@@ -11,14 +11,14 @@ const router = require("express").Router();
 
 router.post("/", verifyToken, async (req, res) => {
   const newCart = new Cart(req.body);
-
   try {
     const savedCart = await newCart.save();
     res.status(200).json(savedCart);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json(error.message);
   }
 });
+
 // update
 router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
@@ -31,7 +31,7 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
     );
     res.status(200).json(updatedCart);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json(error.message);
   }
 });
 
@@ -41,7 +41,7 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
     await Cart.findByIdAndDelete(req.params.id);
     res.status(200).json("Cart has been deleted...");
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json(error.message);
   }
 });
 
@@ -51,7 +51,7 @@ router.get("/find/:userId", verifyTokenAndAuthorization, async (req, res) => {
     const cart = await Cart.findOne({ userId: req.params.userId });
     res.status(200).json(cart);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json(error.message);
   }
 });
 
@@ -61,7 +61,7 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
     const carts = await Cart.find();
     res.status(200).json(carts);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json(error.message);
   }
 });
 
