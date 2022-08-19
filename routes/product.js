@@ -15,6 +15,7 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
     res.status(500).json(error.message);
   }
 });
+
 // update
 router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
@@ -58,7 +59,7 @@ router.get("/", async (req, res) => {
   try {
     let products;
     if (queryNew) {
-      products = await Product.find().sort({ createdAt: -1 }).limit(1);
+      products = await Product.find().sort({ createdAt: -1 }).limit(5);
     } else if (queryCategory) {
       products = await Product.find({
         categories: {

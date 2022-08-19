@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
+
 const User = require("../models/User");
 
 // REGISTER
@@ -49,7 +50,7 @@ router.post("/login", async (req, res) => {
       { expiresIn: "3d" }
     );
 
-    const { password, ...rest } = user._doc;
+    const { password, ...rest } = user._doc; // mongodb stores documents inside _doc folder
     res.status(200).json({ ...rest, accessToken });
   } catch (error) {
     res.status(500).json(error.message);

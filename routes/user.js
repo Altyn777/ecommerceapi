@@ -19,6 +19,7 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
       process.env.PASSWORD_SECRET
     ).toString();
   }
+
   try {
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
